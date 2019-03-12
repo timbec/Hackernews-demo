@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App has a valid snapshot 1`] = `null`;
+
+exports[`Search Button has a valid snapshot 1`] = `
+<button
+  className=""
+  type="button"
+>
+  Give Me More
+</button>
+`;
+
+exports[`Search has a valid snapshot 1`] = `
+<form>
+  <input
+    type="text"
+  />
+  <button
+    type="submit"
+  >
+    Search
+  </button>
+</form>
+`;
+
+exports[`Table has a valid snapshot 1`] = `
+<section
+  className="table"
+>
+  <div
+    className="table-row"
+  >
+    <h1
+      style={
+        Object {
+          "width": "40%",
+        }
+      }
+    >
+      1
+    </h1>
+    <h3
+      style={
+        Object {
+          "width": "30%",
+        }
+      }
+    >
+      1
+    </h3>
+    <span
+      style={
+        Object {
+          "width": "10%",
+        }
+      }
+    >
+      2
+    </span>
+    <span
+      style={
+        Object {
+          "with": "10%",
+        }
+      }
+    >
+      <button
+        className="button-inline"
+        onClick={[Function]}
+        type="button"
+      >
+        Dismiss
+      </button>
+    </span>
+  </div>
+  <div
+    className="table-row"
+  >
+    <h1
+      style={
+        Object {
+          "width": "40%",
+        }
+      }
+    >
+      2
+    </h1>
+    <h3
+      style={
+        Object {
+          "width": "30%",
+        }
+      }
+    >
+      2
+    </h3>
+    <span
+      style={
+        Object {
+          "width": "10%",
+        }
+      }
+    >
+      2
+    </span>
+    <span
+      style={
+        Object {
+          "with": "10%",
+        }
+      }
+    >
+      <button
+        className="button-inline"
+        onClick={[Function]}
+        type="button"
+      >
+        Dismiss
+      </button>
+    </span>
+  </div>
+</section>
+`;
