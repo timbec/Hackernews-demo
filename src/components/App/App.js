@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import Search from '../Search';
 import Table from '../Table';
 import Button from '../Button';
@@ -19,6 +20,9 @@ import {
 } from '../../constants';
 
 
+//should be separate component
+// const Loading = () =>
+//   <div>Loading . . . </div>
 
 
 class App extends Component {
@@ -32,6 +36,7 @@ class App extends Component {
       searchKey: '',
       searchTerm: DEFAULT_QUERY,
       error: null,
+      isLoading: false,
     }
 
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
@@ -66,23 +71,13 @@ class App extends Component {
       results: {
         ...results,
         [searchKey]: { hits: updatedHits, page }
-      }
+      },
+      isLoading: false
     });
   }
 
-  onSearchSubmit(event) {
-    console.log(event);
-    const { searchTerm } = this.state;
-    this.setState({ searchKey: searchTerm })
-    this.fetchSearchTopStories(searchTerm);
-    if
-      (this.needsToSearchTopStories(searchTerm)) {
-      this.fetchSearchTopStories(searchTerm);
-    }
-    event.preventDefault();
-  }
-
   fetchSearchTopStories(searchTerm, page = 0) {
+    console.log('this is fetchSearchTopStories');
     this.setState({ isLoading: true });
 
     axios(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
@@ -107,6 +102,18 @@ class App extends Component {
     this.setState({ searchTerm: event.target.value })
   }
 
+  onSearchSubmit(event) {
+    console.log(event)
+    const { searchTerm } = this.state;
+    this.setState({ searchKey: searchTerm })
+    this.fetchSearchTopStories(searchTerm);
+    if
+      (this.needsToSearchTopStories(searchTerm)) {
+      this.fetchSearchTopStories(searchTerm);
+    }
+    event.preventDefault();
+  }
+
   onDismiss(id) {
     console.log(id);
     const { searchKey, results } = this.state;
@@ -129,7 +136,8 @@ class App extends Component {
       searchTerm,
       results,
       searchKey,
-      error
+      error,
+      isLoading
     } = this.state;
 
     const page = (
@@ -166,9 +174,12 @@ class App extends Component {
           />
         }
         <div className="interactions">
-          <Button onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
-            More
+          {isLoading
+            ? <Loading />
+            : <Button onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
+              More
         </Button>
+          }
         </div>
       </div>
     );
@@ -181,4 +192,16 @@ export {
   Button,
   Search,
   Table,
+}
+
+Button.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  children: PropTypes.node.isRequired,
+}
+
+Search.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 }

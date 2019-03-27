@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Button from '../Button';
 
 function isSearched(searchTerm) {
@@ -30,6 +31,11 @@ const Table = ({ list, onDismiss }) =>
             </div>
         )}
     </section>
+
+Table.propTypes = {
+    list: PropTypes.array.isRequired,
+    onDismiss: PropTypes.func.isRequired,
+}
 
 
 export default Table; 
