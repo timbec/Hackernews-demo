@@ -1,9 +1,26 @@
-const SORT = {
-    NONE: list => list,
-    TITLE: list => sortBy(list, 'title'),
-    AUTHOR: list => sortBy(list, 'author'),
-    COMMENTS: list => sortBy(list, 'num_comments').reverse(),
-    POINTS: list => sortBy(list, 'points').reverse(),
-};
+import React, { Component } from 'react';
+import Button from '../Button';
+import { sortBy } from 'lodash';
+import classNames from 'classnames';
 
-export default SORT;
+const Sort = ({
+    sortKey,
+    activeSortKey,
+    onSort,
+    children
+}) => {
+    const sortClass = classNames(
+        'button-inline',
+        { 'button-active': sortKey === activeSortKey }
+    );
+
+    return (
+        <Button onClick={() => onSort(sortKey)}
+
+            className={sortClass}>
+            {children}
+        </Button>
+    )
+}
+
+export default Sort;

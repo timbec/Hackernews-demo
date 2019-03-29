@@ -26,6 +26,7 @@ const Loading = () =>
 
 const withLoading = (Component) =>
   ({ isLoading, ...rest }) => isLoading ? <Loading /> : <Component {...rest} />
+
 const ButtonWithLoading = withLoading(Button);
 
 
@@ -42,6 +43,7 @@ class App extends Component {
       error: null,
       isLoading: false,
       sortKey: 'NONE',
+      isSortReverse: false,
     }
 
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
@@ -51,7 +53,6 @@ class App extends Component {
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
     this.onSort = this.onSort.bind(this);
-
   }
 
   needsToSearchTopStories(searchTerm) {
@@ -137,8 +138,10 @@ class App extends Component {
   };
 
   onSort(sortKey) {
-    this.setState({ sortKey });
+    const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
+    this.setState({ sortKey, isSortReverse })
   }
+
 
   render() {
     //example of destructuring:
@@ -148,7 +151,8 @@ class App extends Component {
       searchKey,
       error,
       isLoading,
-      sortKey
+      sortKey,
+      isSortReverse,
     } = this.state;
 
     const page = (
@@ -182,6 +186,7 @@ class App extends Component {
           : <Table
             list={list}
             sortKey={sortKey}
+            isSortReverse={isSortReverse}
             onSort={this.onSort}
             onDismiss={this.onDismiss}
           />
